@@ -48,20 +48,22 @@ public class SudokuBoard {
         catch(IOException e){
             System.out.println("Read Error");
         }
-        System.out.println(boards);
+        System.out.println("readFile array" + boards);
         return boards;
     }
     
-    public int[][] getRandomBoard() {
-        if (gameBoards == null) {
+    public ArrayList<ArrayList<Integer>> getRandomBoard() {
+//        if (boards == null) {
             ArrayList<ArrayList<ArrayList<Integer>>> boards = readFile();
-            gameBoards = (int[][][])boards.toArray();
-        }
-        int idx = (int)(Math.random() * gameBoards.length);
+            System.out.println("getRandom arraylist" + boards);
+//            int[][][] gameBoards = (int[][][])boards.toArray();
+//        }
+//        System.out.println("getRandomBoard array" + gameBoards);
+        int idx = (int)(Math.random() * boards.size());
         System.out.println("idx: " + idx);
-        System.out.println("length: " + gameBoards.length);
+        System.out.println("length: " + boards.size());
 
-        return gameBoards[idx];
+        return boards.get(idx);
     };
 
     
@@ -93,9 +95,10 @@ public class SudokuBoard {
 //        return "valid";
 //    }
     
-    public static void main(String[] args){
-        SudokuBoard test = new SudokuBoard();
-    }
+//    public static void main(String[] args){
+//        SudokuBoard test = new SudokuBoard();
+//        test.getRandomBoard();
+//    }
     
     
 //      public static boolean checkRows(){

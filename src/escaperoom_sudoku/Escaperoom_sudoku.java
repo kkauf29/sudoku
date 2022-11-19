@@ -36,7 +36,7 @@ public class Escaperoom_sudoku extends Application {
             // Show the stage
             primaryStage.show();
             } 
-        catch(Exception ex) {System.out.println("Error FXMLLoader - start()"); }
+        catch(Exception ex) {System.out.println("Error FXMLLoader - start()\n" + ex); }
     }
 
     /**

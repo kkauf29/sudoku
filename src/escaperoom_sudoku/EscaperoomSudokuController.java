@@ -35,39 +35,35 @@ public class EscaperoomSudokuController implements Initializable {
 
     @FXML
     private GridPane sudokuBoard;
-    @FXML
-    private TextField [][] cells;
-    @FXML 
-    private TextField field;
-
-    
-    
+            
     @Override    
     public void initialize(URL url, ResourceBundle rb) {
         sudokuBoard.setHgap(0);
         sudokuBoard.setVgap(0);
         sudokuBoard.setStyle("-fx-border: 5px solid; -fx-border-color: black;");
-        SudokuBoard board = new SudokuBoard();
-        int[][] board1 = board.getRandomBoard();
-        TextField[][] cells = new TextField[9][9];
+        SudokuBoard sb = new SudokuBoard();
+        ArrayList<ArrayList<Integer>> board = sb.getRandomBoard();
+        System.out.println("got random board" + board);
+
         for(int row = 0; row < 9; row++) {
             for(int col = 0; col < 9; col++) {
-                cells[row][col] = new TextField();
-                field = cells[row][col];
+                TextField field = new TextField();
                 field.setPrefHeight(100);
                 field.setMinHeight(100);
                 field.setPrefWidth(60);
                 field.setMinWidth(60);
                 field.setStyle("-fx-border: 10px solid; -fx-border-color: black; -fx-alignment: center; -fx-font-size: 25pt;");
-                field.setText(Integer.toString(board1[row][col]));
+                field.setText(Integer.toString(board.get(row).get(col)));
+                System.out.println("set field text");
                 if (field.getText().equals("0")) {
                     field.clear();
                 }
-                                
+                
 //                field.addEventHandler(KeyEvent.KEY_TYPED, handler);
 
                 sudokuBoard.add(field, col, row);                                                                            
             }
+
         } 
     };
     
