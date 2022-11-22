@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
  * @author kkauf
  */
 public class SudokuBoard {
-    private int[][][] gameBoards;
+    private ArrayList<ArrayList<ArrayList<Integer>>> gameBoards;
     
     public ArrayList<ArrayList<ArrayList<Integer>>> readFile(){
         BufferedReader reader;
@@ -53,85 +53,46 @@ public class SudokuBoard {
     }
     
     public ArrayList<ArrayList<Integer>> getRandomBoard() {
-//        if (boards == null) {
+        if (gameBoards == null) {
             ArrayList<ArrayList<ArrayList<Integer>>> boards = readFile();
             System.out.println("getRandom arraylist" + boards);
-//            int[][][] gameBoards = (int[][][])boards.toArray();
-//        }
+            gameBoards = boards;
+        }
 //        System.out.println("getRandomBoard array" + gameBoards);
-        int idx = (int)(Math.random() * boards.size());
+        int idx = (int)(Math.random() * gameBoards.size());
         System.out.println("idx: " + idx);
-        System.out.println("length: " + boards.size());
+        System.out.println("length: " + gameBoards.size());
 
-        return boards.get(idx);
+        return gameBoards.get(idx);
     };
 
     
-//    private String checkBoard(TextField[][] cells) {
-//        System.out.println("checking board: " + cells.length + "x" + cells[0].length);
-//        
-//        for(int row = 0; row < cells.length; row++) {
-//            char[] currRow = new char[cells[row].length];
-//            for(int col = 0; col < cells[row].length; col++) {
-//                char[] currCell = cells[row][col].getText().toCharArray();
-//                if (currCell.length == 0) {
-//                    return "incomplete";
-//                }
-//                currRow[col] = currCell[0];
-//            }
-//            Arrays.sort(currRow);
-//            String currRowStr = new String(currRow);
-//            if (currRowStr.equals("123456789")) {
-//                System.out.println("row is valid");
-//                return "valid";
-//            }
-//            else {
-//                System.out.println("row is invalid: " + currRowStr );
-//                return "invalid";
-//               
-//            }
-//        }
-//        
-//        return "valid";
-//    }
-    
-//    public static void main(String[] args){
-//        SudokuBoard test = new SudokuBoard();
-//        test.getRandomBoard();
-//    }
-    
-    
-//      public static boolean checkRows(){
-//    String [] rowValues = new String[9];
-//
-//    for(int row = 0; row < 9; row++){
-//      rowValues[row] = "";
-//      for(int col = 0; col < 9; col++){
-//        rowValues[row] += data[row][col];
-//      }
-//      char [] rowSort = rowValues[row].toCharArray();
-//      Arrays.sort(rowSort);
-//      String rowStr = "";
-//      for(char c : rowSort)
-//        rowStr += Character.toString(c);
-//      System.out.print("\n" + rowStr);
-//      if("123456789".compareTo(rowStr) != 0)
-//        return false;
-//    }
-//    return true; // all rows valid
-//  }
-    
-//  public static boolean checkCols(){
-//    return true; // TODO - function stub
-//  }
-//
-//  
-//  public static boolean checkGrids(){
-//    return true; // TODO - function stub
-//  }    
-    
-    
-
-    
-    
+    public String checkRows(ArrayList<ArrayList<String>> cells) {
+        System.out.println("checking board: " + cells.size() + "x" + cells.get(0).size());
+        
+        for(int row = 0; row < cells.size(); row++) {
+            char[] currRow = new char[cells.get(row).size()];
+            for(int col = 0; col < cells.get(row).size(); col++) {
+                char[] currCell = cells.get(row).get(col).toCharArray();    
+                if (currCell.length == 0) {
+                    return "incomplete";
+                }
+                currRow[col] = currCell[0];
+            }
+            Arrays.sort(currRow);
+            String currRowStr = new String(currRow);
+            if (currRowStr.equals("123456789")) {
+                System.out.println("row is valid");
+                return "valid";
+            }
+            else {
+                System.out.println("row is invalid: " + currRowStr );
+                return "invalid";
+               
+            }
+        }
+        
+        return "valid";
+    }
+                            
 }

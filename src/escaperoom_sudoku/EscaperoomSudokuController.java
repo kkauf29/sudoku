@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.InputEvent;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -34,9 +35,12 @@ import javafx.scene.input.InputEvent;
  * 10/15/22
  */
 public class EscaperoomSudokuController implements Initializable {
-    
+    @FXML
+    private Pane pane;
     @FXML
     private GridPane sudokuBoard;
+    @FXML
+    private Label gameLabel;
             
     @Override    
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,6 +66,7 @@ public class EscaperoomSudokuController implements Initializable {
                 }
                 GridPane.setRowIndex(field, row);
                 GridPane.setColumnIndex(field, col);
+                gameLabel.setText("Enter numbers 1-9 to complete the board");
                 
                 field.addEventHandler(KeyEvent.KEY_TYPED, keyHandler);
                 field.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseHandler);
@@ -76,8 +81,10 @@ public class EscaperoomSudokuController implements Initializable {
         public void handle(KeyEvent event) {
             boolean boardStatus = checkBoard(sudokuBoard);
             if (boardStatus) {
+                gameLabel.setText("Player Wins");
                 System.out.println("player wins!");
             } else {
+                gameLabel.setText("Board Invalid");
                 System.out.println("board invalid");
             }
         }
@@ -88,8 +95,10 @@ public class EscaperoomSudokuController implements Initializable {
         public void handle(MouseEvent event) {
             boolean boardStatus = checkBoard(sudokuBoard);
             if (boardStatus) {
+                gameLabel.setText("Player Wins");
                 System.out.println("player wins!");
             } else {
+                gameLabel.setText("Board Invalid");
                 System.out.println("board invalid");
             }
         }
@@ -104,9 +113,7 @@ public class EscaperoomSudokuController implements Initializable {
             int col = GridPane.getColumnIndex(child);
             boardValues[row][col] = field.getText();
         }
-//        return checkRows(boardValues) && checkCols(boardValues) && checkGrids(boardValues);
-        return checkGrids(boardValues);
-//        return checkCols(boardValues);
+        return checkGrids(boardValues) && checkRows(boardValues) && checkCols(boardValues);
     }
     
     private boolean checkSet(String setName, String[][] boardValues) {
